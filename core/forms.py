@@ -174,8 +174,6 @@ class BookingForm(forms.ModelForm):
          ' border-red-500 ring-1 ring-red-500'
     )
     
-
-        self.fields['slot'].choices = available_slots
     # ----------------------------
     # NAME VALIDATION
     # ----------------------------
