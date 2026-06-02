@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Booking success</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    {% extends 'core/base.html' %} {% block content %}
+
+    <section
+      class="min-h-screen flex items-center justify-center bg-[#FFF9F7] px-4 py-16"
+    >
+      <div
+        class="max-w-2xl w-full bg-white shadow-xl rounded-3xl p-10 text-center"
+      >
+        <!-- Success Icon -->
+        <div class="mb-6">
+          <div
+            class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center"
+          >
+            <span class="text-4xl text-green-600">✓</span>
+          </div>
+        </div>
+
+        <!-- Success Message -->
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+          Booking Confirmed!
+        </h1>
+
+        <p class="text-gray-600 text-lg mb-8">
+          Thank you for booking with BB CARE. Your appointment request has been
+          successfully submitted.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-col md:flex-row gap-8 justify-center">
+          <a
+            href="{% url 'home' %}"
+            class="bg-[#E8A0BF] text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-200/50"
+          >
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!-- Navbar -->
+<nav
+  class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/60 border-b border-pink-100"
+>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <h1 class="text-3xl font-semibold font-playfair text-[#3B2D35]">BB CARE</h1>
+
+    <!-- Links -->
+    <div class="flex items-center gap-8 lg:gap-12 text-[#3B2D35] font-medium">
+      <a
+        href="#home"
+        class="nav-link text-[#3B2D35] hover:text-[#E8A0BF] transition duration-300"
+      >
+        Home
+      </a>
+
+      <a
+        href="#services"
+        class="nav-link text-[#3B2D35] hover:text-[#E8A0BF] transition duration-300"
+      >
+        Services
+      </a>
+
+      <a
+        href="#gallery"
+        class="nav-link text-[#3B2D35] hover:text-[#E8A0BF] transition duration-300"
+      >
+        Gallery
+      </a>
+
+      <a
+        href="#testimonals"
+        class="nav-link text-[#3B2D35] hover:text-[#E8A0BF] transition duration-300"
+      >
+        Testimonials
+      </a>
+
+      <a
+        href="#contact"
+        class="nav-link text-[#3B2D35] hover:text-[#E8A0BF] transition duration-300"
+      >
+        Contact
+      </a>
+    </div>
+
+    <!-- Button -->
+    <button
+      class="bg-[#E8A0BF] text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-200/50"
+    >
+      <a href="{% url 'booking' %}">Book Appointment</a>
+    </button>
+  </div>
+</nav>

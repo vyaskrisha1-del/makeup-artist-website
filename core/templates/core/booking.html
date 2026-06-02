@@ -1,0 +1,266 @@
+{% extends 'core/base.html' %} {% block content %}
+<section class="bg-[#FFF9F7] pt-36 pb-20 px-4 relative overflow-hidden">
+  <!-- BACKGROUND GLOW -->
+  <div
+    class="absolute top-20 left-10 w-72 h-72 bg-pink-200 opacity-30 blur-[120px] rounded-full"
+  ></div>
+
+  <div
+    class="absolute bottom-10 right-10 w-72 h-72 bg-rose-100 opacity-30 blur-[120px] rounded-full"
+  ></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <!-- HEADING -->
+    <div class="text-center mb-14 mt-6">
+      <p
+        class="uppercase tracking-[5px] text-[#E8A0BF] text-sm mb-4 font-medium"
+      >
+        Luxury Beauty Experience
+      </p>
+
+      <h1
+        class="text-5xl md:text-6xl font-bold text-[#3E2C35] mb-5 leading-tight"
+      >
+        Book Your <br />
+        Appointment
+      </h1>
+    </div>
+
+    <!-- BOOKING CARD -->
+    <div
+      class="backdrop-blur-xl bg-white/80 border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.08)] rounded-[40px] p-8 md:p-14 transition duration-500 hover:shadow-[0_25px_80px_rgba(236,72,153,0.15)]"
+    >
+      <form
+        method="POST"
+        novalidate
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
+      >
+        {% csrf_token %}
+
+        <!-- NAME -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Full Name
+          </label>
+
+          {% if form.customer_name.errors %}
+          <div class="border border-red-500 rounded-2xl">
+            {{ form.customer_name }}
+          </div>
+          <p class="text-red-600 text-sm mt-2">
+            {{ form.customer_name.errors.0 }}
+          </p>
+          {% else %} {{ form.customer_name }} {% endif %}
+        </div>
+
+        <!-- PHONE -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Phone Number
+          </label>
+
+          {% if form.phone.errors %}
+          <div class="border border-red-500 rounded-2xl">{{ form.phone }}</div>
+          <p class="text-red-600 text-sm mt-2">{{ form.phone.errors.0 }}</p>
+          {% else %} {{ form.phone }} {% endif %}
+        </div>
+        <!-- EMAIL -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Email Address
+          </label>
+
+          {% if form.email.errors %}
+          <div class="border border-red-500 rounded-2xl">{{ form.email }}</div>
+          <p class="text-red-600 text-sm mt-2">{{ form.email.errors.0 }}</p>
+          {% else %} {{ form.email }} {% endif %}
+        </div>
+
+        <!-- SERVICE -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Select Service
+          </label>
+
+          {% if form.service.errors %}
+          <div class="border border-red-500 rounded-2xl">
+            {{ form.service }}
+          </div>
+          <p class="text-red-600 text-sm mt-2">{{ form.service.errors.0 }}</p>
+          {% else %} {{ form.service }} {% endif %}
+        </div>
+
+        <!-- DATE -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Appointment Date
+          </label>
+
+          {% if form.appointment_date.errors %}
+          <div class="border border-red-500 rounded-2xl">
+            {{ form.appointment_date }}
+          </div>
+          <p class="text-red-600 text-sm mt-2">
+            {{ form.appointment_date.errors.0 }}
+          </p>
+          {% else %} {{ form.appointment_date }} {% endif %}
+        </div>
+
+        <!-- SLOT -->
+        <div>
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Select Available Slot
+          </label>
+
+          {% if form.slot.errors %}
+          <div class="border border-red-500 rounded-2xl">{{ form.slot }}</div>
+          <p class="text-red-600 text-sm mt-2">{{ form.slot.errors.0 }}</p>
+          {% else %} {{ form.slot }} {% endif %}
+        </div>
+
+        <!-- LOCATION -->
+        <div class="md:col-span-2">
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Location Type
+          </label>
+
+          {% if form.location_type.errors %}
+          <div class="border border-red-500 rounded-2xl">
+            {{ form.location_type }}
+          </div>
+          <p class="text-red-600 text-sm mt-2">
+            {{ form.location_type.errors.0 }}
+          </p>
+          {% else %} {{ form.location_type }} {% endif %}
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="md:col-span-2">
+          <label class="block mb-3 font-medium text-[#4A3A3A]">
+            Address (Only for Home Service)
+          </label>
+
+          {% if form.address.errors %}
+          <div class="border border-red-500 rounded-2xl">
+            {{ form.address }}
+          </div>
+          <p class="text-red-600 text-sm mt-2">{{ form.address.errors.0 }}</p>
+          {% else %} {{ form.address }} {% endif %}
+        </div>
+
+        <!-- BUTTON -->
+        <div class="md:col-span-2 text-center pt-8">
+          <button
+            type="submit"
+            id="submit-btn"
+            class="bg-[#E8A0BF] text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-200/50"
+          >
+            Confirm Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dateInput = document.querySelector('input[name="appointment_date"]');
+
+    const slotSelect = document.querySelector('select[name="slot"]');
+
+    if (!dateInput || !slotSelect) {
+      return;
+    }
+
+    function loadSlots(selectedDate) {
+      if (!selectedDate) {
+        return;
+      }
+
+      const currentSlot = slotSelect.value;
+
+      fetch(`/get-available-slots/?date=${selectedDate}`)
+        .then((response) => response.json())
+        .then((data) => {
+          slotSelect.innerHTML = "";
+
+          let defaultOption = document.createElement("option");
+
+          defaultOption.value = "";
+          defaultOption.text = "Select Slot";
+
+          slotSelect.appendChild(defaultOption);
+
+          data.slots.forEach(function (slot) {
+            let option = document.createElement("option");
+
+            option.value = slot;
+            option.text = slot;
+
+            if (slot === currentSlot) {
+              option.selected = true;
+            }
+
+            slotSelect.appendChild(option);
+          });
+        });
+    }
+
+    dateInput.addEventListener("change", function () {
+      loadSlots(this.value);
+    });
+
+    // IMPORTANT:
+    // Auto reload slots after validation error
+    if (dateInput.value) {
+      loadSlots(dateInput.value);
+    }
+  });
+</script>
+<script>
+  document.querySelector("form").addEventListener("submit", function () {
+    const btn = document.getElementById("submit-btn");
+
+    btn.innerHTML = "Booking...";
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = "Confirm Booking";
+    }, 5000);
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const locationField = document.querySelector(
+      'select[name="location_type"]',
+    );
+
+    const addressSection = document.querySelector("#address-section");
+
+    function toggleAddress() {
+      if (locationField.value === "Home Service") {
+        addressSection.style.display = "block";
+      } else {
+        addressSection.style.display = "none";
+      }
+    }
+
+    toggleAddress();
+
+    locationField.addEventListener("change", toggleAddress);
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const firstError = document.querySelector(".text-red-600");
+
+    if (firstError) {
+      firstError.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  });
+</script>
+{% endblock %}

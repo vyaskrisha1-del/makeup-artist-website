@@ -1,0 +1,60 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ================= GOOGLE FONTS ================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ================= TAILWIND CSS ================= -->
+
+    <link rel="stylesheet" href="{% static 'core/css/output.css' %}" />
+
+    <title>BB CARE | Luxury Beauty Studio</title>
+  </head>
+
+  <body class="bg-[#FFF9F7] font-poppins overflow-x-hidden">
+    {% include 'core/partials/splash.html' %}
+    <!-- ================= NAVBAR ================= -->
+
+    {% include 'core/partials/navbar.html' %}
+
+    <!-- ================= HERO ================= -->
+
+    {% include 'core/partials/hero.html' %}
+
+    <!-- ================= SERVICES ================= -->
+
+    {% include 'core/partials/services.html' %}
+
+    <!-- ================= PORTFOLIO ================= -->
+
+    {% include 'core/partials/gallery.html' %}
+
+    <!-- ================= ABOUT ================= -->
+
+    {% include 'core/partials/about.html' %}
+
+    <!-- ================= CONTACT ================= -->
+
+    {% include 'core/partials/contact.html' %}
+
+    <!-- ================= FOOTER ================= -->
+
+    {% include 'core/partials/footer.html' %}
+
+    <!-- ================= MAIN JS ================= -->
+
+    <script src="{% static 'core/js/main.js' %}"></script>
+  </body>
+</html>

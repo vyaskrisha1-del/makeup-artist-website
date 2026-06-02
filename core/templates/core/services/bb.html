@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Bridal Experience</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Josefin+Sans:wght@200;300;400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      .bridal-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
+      .font-body {
+        font-family: "Cormorant Garamond", serif;
+      }
+      .font-sans-light {
+        font-family: "Josefin Sans", sans-serif;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(220, 200, 180, 0.25);
+      }
+      .glass-card-light {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(220, 200, 180, 0.3);
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes floatSlow {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(3deg);
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+      .animate-fade-up {
+        animation: fadeUp 1s ease forwards;
+      }
+      .animate-fade-up-delay {
+        animation: fadeUp 1s ease 0.3s forwards;
+        opacity: 0;
+      }
+      .animate-fade-up-delay2 {
+        animation: fadeUp 1s ease 0.6s forwards;
+        opacity: 0;
+      }
+      .animate-float {
+        animation: floatSlow 6s ease-in-out infinite;
+      }
+      .animate-float-delay {
+        animation: floatSlow 6s ease-in-out 2s infinite;
+      }
+      .gold-line {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4b5a0, transparent);
+      }
+      .gold-shimmer {
+        background: linear-gradient(90deg, #d4b5a0, #f0e6d8, #d4b5a0);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 3s linear infinite;
+      }
+      .section-observe {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .section-observe.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bridal-portrait {
+        background: linear-gradient(
+          135deg,
+          #f5f0eb 0%,
+          #ede5dc 50%,
+          #f5ede0 100%
+        );
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 0 40px rgba(212, 181, 160, 0.15);
+      }
+      .bridal-portrait::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(212, 181, 160, 0.1) 0%,
+          transparent 70%
+        );
+      }
+      .portrait-silhouette {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn-luxury {
+        background: linear-gradient(135deg, #d4b5a0, #c9a691);
+        transition: all 0.4s ease;
+        letter-spacing: 2px;
+        color: #faf8f5;
+      }
+      .btn-luxury:hover {
+        background: linear-gradient(135deg, #e6c9b8, #d4b5a0);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(212, 181, 160, 0.25);
+      }
+      .floral-element {
+        position: absolute;
+        opacity: 0.2;
+        pointer-events: none;
+      }
+    </style>
+    <style>
+      body {
+        box-sizing: border-box;
+      }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  </head>
+  <body
+    class="h-full"
+    style="background: linear-gradient(135deg, #faf8f5 0%, #f5f0eb 100%)"
+  >
+    <div class="bridal-wrapper w-full" id="main-wrapper">
+      <!-- Navigation -->
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between"
+        style="
+          background: linear-gradient(
+            180deg,
+            rgba(250, 248, 245, 0.95) 0%,
+            transparent 100%
+          );
+        "
+      >
+        <div
+          class="font-display text-[#a88c7c] text-xl tracking-widest"
+          id="nav-brand"
+        >
+          LUXE BEAUTY ATELIER
+        </div>
+        <div
+          class="hidden md:flex gap-8 font-sans-light text-xs tracking-[3px] text-[#b8a895]"
+        >
+          <a href="#engagement" class="hover:text-[#d4b5a0] transition-colors"
+            >ENGAGEMENT</a
+          >
+          <a href="#wedding" class="hover:text-[#d4b5a0] transition-colors"
+            >WEDDING</a
+          >
+          <a href="#reception" class="hover:text-[#d4b5a0] transition-colors"
+            >RECEPTION</a
+          >
+        </div>
+        <a
+          href="#finale"
+          class="font-sans-light text-xs tracking-[2px] text-[#d4b5a0] border border-[#d4b5a0]/40 px-4 py-2 hover:bg-[#d4b5a0]/8 transition-all"
+          >RESERVE</a
+        >
+      </nav>
+      <!-- Hero Section -->
+      <section class="relative w-full" style="min-height: 100%">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-[#f5ede0] via-[#faf8f5] to-[#f0e6d8]"
+        ></div>
+        <div class="absolute inset-0 overflow-hidden">
+          <div
+            class="floral-element top-20 right-20 animate-float"
+            style="font-size: 80px; color: #d4b5a0"
+          >
+            ✿
+          </div>
+          <div
+            class="floral-element bottom-32 left-16 animate-float-delay"
+            style="font-size: 60px; color: #e6c9b8"
+          >
+            ❀
+          </div>
+          <div
+            class="absolute top-1/4 right-1/4 w-64 h-64 rounded-full"
+            style="
+              background: radial-gradient(
+                circle,
+                rgba(212, 181, 160, 0.08) 0%,
+                transparent 70%
+              );
+            "
+          ></div>
+        </div>
+        <div
+          class="relative z-10 flex flex-col items-center justify-center text-center px-6"
+          style="min-height: 100%; padding-top: 120px; padding-bottom: 80px"
+        >
+          <div class="gold-line mb-8 animate-fade-up"></div>
+          <p
+            class="font-sans-light text-[#b8a895] text-xs tracking-[6px] uppercase mb-6 animate-fade-up"
+          >
+            Professional Bridal Artistry
+          </p>
+          <h1
+            class="font-display text-[#5a4a42] text-5xl md:text-7xl lg:text-8xl font-normal leading-tight mb-6 animate-fade-up-delay"
+            id="hero-tagline"
+          >
+            <span class="italic">Your</span> Bridal<br /><span
+              class="gold-shimmer"
+              >Transformation</span
+            >
+          </h1>
+          <p
+            class="font-body text-[#8b7b72] text-lg md:text-xl max-w-lg mb-10 animate-fade-up-delay2"
+          >
+            Expertly crafted makeup looks for every sacred moment of your
+            wedding journey.
+          </p>
+          <a
+            href="#engagement"
+            class="btn-luxury font-sans-light text-xs tracking-[3px] px-10 py-4 animate-fade-up-delay2 rounded"
+            >EXPLORE LOOKS</a
+          >
+        </div>
+      </section>
+      <!-- Bridal Sections -->
+      <div id="sections-container"></div>
+      <!-- Finale Section -->
+      <section id="finale" class="relative w-full" style="min-height: 100%">
+        <div
+          class="absolute inset-0"
+          style="
+            background: linear-gradient(
+              135deg,
+              #faf8f5 0%,
+              #f5ede0 50%,
+              #f0e6d8 100%
+            );
+          "
+        ></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div
+            class="w-96 h-96 rounded-full"
+            style="
+              background: radial-gradient(
+                circle,
+                rgba(212, 181, 160, 0.08) 0%,
+                transparent 60%
+              );
+            "
+          ></div>
+        </div>
+        <div
+          class="relative z-10 flex flex-col items-center justify-center text-center px-6"
+          style="min-height: 100%; padding-top: 100px; padding-bottom: 100px"
+        >
+          <div
+            class="floral-element animate-float"
+            style="font-size: 40px; margin-bottom: 2rem; color: #d4b5a0"
+          >
+            ✿
+          </div>
+          <div class="gold-line mb-8"></div>
+          <h2
+            class="font-display text-[#5a4a42] text-4xl md:text-6xl lg:text-7xl font-normal leading-tight mb-8 max-w-4xl section-observe"
+            id="closing-quote"
+          >
+            Every Bride<br />
+            Deserves to Feel
+            <span class="italic text-[#d4b5a0]">Extraordinary</span>
+          </h2>
+          <p class="font-body text-[#8b7b72] text-lg mb-12 section-observe">
+            Let us craft your most beautiful look
+          </p>
+          <a
+            href="#"
+            class="btn-luxury font-sans-light text-xs tracking-[3px] px-12 py-5 section-observe rounded"
+            onclick="event.preventDefault()"
+            >RESERVE YOUR BRIDAL DATE</a
+          >
+          <div
+            class="mt-16 flex items-center gap-6 text-[#b8a895]/60 font-sans-light text-xs tracking-[2px] section-observe"
+          >
+            <span>APPOINTMENTS AVAILABLE</span><span>·</span
+            ><span>LUXURY EXPERIENCE</span>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const sectionsData = [
+        {
+          id: "engagement",
+          title: "Engagement",
+          heading: "A Radiant Beginning",
+          desc: "A graceful and radiant look designed to celebrate the beginning of your forever story with elegance and timeless beauty.",
+          includes: [
+            "HD Engagement Makeup",
+            "Signature Hairstyle",
+            "Premium Lashes",
+            "Jewelry Setting Assistance",
+          ],
+          price: "₹25,000",
+          silhouette: "👰",
+          accent: "#d4b5a0",
+        },
+        {
+          id: "mehndi",
+          title: "Mehndi",
+          heading: "Colors of Joy",
+          desc: "A vibrant and playful look crafted for joyful Mehndi celebrations filled with color, happiness, and unforgettable moments.",
+          includes: [
+            "Fresh Floral Glam",
+            "Braided Hairstyle",
+            "Soft Glow Finish",
+            "Lightweight Makeup",
+          ],
+          price: "₹18,000",
+          silhouette: "💃",
+          accent: "#c8956c",
+        },
+        {
+          id: "carnival",
+          title: "Carnival / Cinderella",
+          heading: "A Fairytale Dream",
+          desc: "A dreamy fairytale-inspired transformation designed to make you feel like royalty at your most magical celebration.",
+          includes: [
+            "Princess Glam Look",
+            "Luxe Curl Styling",
+            "Shimmer Finish",
+            "Premium Lashes",
+          ],
+          price: "₹22,000",
+          silhouette: "👸",
+          accent: "#d9b5c0",
+        },
+        {
+          id: "ganesh",
+          title: "Ganesh Sthapna",
+          heading: "Sacred Elegance",
+          desc: "A graceful ethnic look perfect for sacred rituals and family celebrations, honoring tradition with timeless beauty.",
+          includes: [
+            "Traditional Elegance",
+            "Classic Hair Styling",
+            "Natural Glow Makeup",
+            "Long-Lasting Finish",
+          ],
+          price: "₹15,000",
+          silhouette: "🙏",
+          accent: "#d4a878",
+        },
+        {
+          id: "sangeet",
+          title: "Sangeet",
+          heading: "Dance in Beauty",
+          desc: "A glamorous celebration look created for unforgettable performances and joyful memories that last all night long.",
+          includes: [
+            "HD Party Glam",
+            "Statement Eye Makeup",
+            "Dance-Proof Styling",
+            "Long-Lasting Finish",
+          ],
+          price: "₹20,000",
+          silhouette: "💫",
+          accent: "#d4c878",
+        },
+        {
+          id: "wedding",
+          title: "Wedding Day",
+          heading: "The Bride Everyone Remembers",
+          desc: "The most important look of your journey, crafted with perfection, elegance, and timeless beauty that captures your essence.",
+          includes: [
+            "Premium Bridal Makeup",
+            "Luxury Hairstyling",
+            "HD Airbrush Finish",
+            "Touch-Up Kit",
+            "Dupatta Setting",
+          ],
+          price: "₹55,000",
+          silhouette: "👑",
+          accent: "#f5d478",
+          grand: true,
+        },
+        {
+          id: "reception",
+          title: "Reception",
+          heading: "The Grand Finale",
+          desc: "A sophisticated and glamorous look designed to leave a lasting impression and command attention all evening long.",
+          includes: [
+            "Red Carpet Glam",
+            "Luxury Hair Styling",
+            "Premium Lashes",
+            "Flawless HD Finish",
+          ],
+          price: "₹28,000",
+          silhouette: "✨",
+          accent: "#d4b5a0",
+        },
+      ];
+
+      const brideImages = [
+        "https://api-img.eventplanet.in/upload/download_(3)2.png",
+        "https://media.weddingz.in/images/06f079a28cc103428ce975c415b1846d/Full-Hand-mehndi.jpg",
+        "https://i.pinimg.com/236x/e4/c2/a7/e4c2a78b6abcc55102f67f4e8283eff8.jpg",
+        "https://i.pinimg.com/474x/7c/b9/64/7cb964422e9948daeb597c741433f74d.jpg",
+        "https://blog.falgunishanepeacock.in/wp-content/uploads/2024/03/rakul-preet-3-768x1024.jpg",
+        "https://i.pinimg.com/1200x/26/30/cd/2630cd08326fc21125718a0accffadc6.jpg",
+        "https://kajolrpaswwan.in/wp-content/uploads/2025/03/IMG_2841.jpg",
+      ];
+
+      function renderSections() {
+        const container = document.getElementById("sections-container");
+        container.innerHTML = sectionsData
+          .map((s, i) => {
+            const imageRight = i % 2 === 0;
+            const isGrand = s.grand;
+            const imageUrl = brideImages[i] || s.silhouette;
+            return `
+        <section id="${s.id}" class="relative w-full" style="min-height: 100%;">
+          <div class="absolute inset-0" style="background: ${isGrand ? "linear-gradient(135deg, #f5ede0 0%, #faf8f5 50%, #f0e6d8 100%)" : "linear-gradient(180deg, #faf8f5, #f5f0eb)"}"></div>
+          ${isGrand ? '<div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(212,181,160,0.06) 0%, transparent 50%);"></div>' : ""}
+          <div class="relative z-10 flex flex-col ${imageRight ? "md:flex-row" : "md:flex-row-reverse"} items-stretch" style="min-height: 100%;">
+            <!-- Content Side -->
+            <div class="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-32">
+              <div class="section-observe">
+                <p class="font-sans-light text-xs tracking-[4px] uppercase mb-4" style="color: ${s.accent};">${s.title}</p>
+                <div class="gold-line mb-8"></div>
+                <h2 class="font-display ${isGrand ? "text-5xl md:text-6xl lg:text-7xl" : "text-4xl md:text-5xl"} text-[#5a4a42] font-normal leading-tight mb-6">
+                  <span class="italic">${s.heading}</span>
+                </h2>
+                <p class="font-body text-[#8b7b72] text-lg leading-relaxed mb-10 max-w-md">${s.desc}</p>
+                <!-- Package Card -->
+                <div class="${isGrand ? "glass-card" : "glass-card"} rounded-2xl p-8 mb-8 max-w-sm">
+                  <p class="font-sans-light text-xs tracking-[3px] text-[#d4b5a0] uppercase mb-4">Package Includes</p>
+                  <ul class="space-y-3 mb-6">
+                    ${s.includes.map((item) => `<li class="font-body text-[#7b6b62] text-base flex items-center gap-3"><span style="color:${s.accent};">◆</span> ${item}</li>`).join("")}
+                  </ul>
+                  <div class="border-t border-[#d4b5a0]/30 pt-4 flex items-end justify-between">
+                    <div>
+                      <p class="font-sans-light text-[10px] tracking-[2px] text-[#a89070] uppercase">Starting from</p>
+                      <p class="font-display ${isGrand ? "text-4xl" : "text-3xl"} text-[#5a4a42]">${s.price}</p>
+                    </div>
+                    ${isGrand ? '<span class="font-sans-light text-[9px] tracking-[2px] text-[#d4b5a0] border border-[#d4b5a0]/50 px-3 py-1 rounded-full">SIGNATURE</span>' : ""}
+                  </div>
+                </div>
+                <button class="btn-luxury font-sans-light text-xs tracking-[3px] px-8 py-4 rounded" onclick="event.preventDefault();">BOOK CONSULTATION</button>
+              </div>
+            </div>
+            <!-- Portrait Side -->
+            <div class="w-full md:w-1/2 relative bridal-portrait" style="min-height: 500px; overflow: hidden;">
+              <img src="${imageUrl}" alt="${s.title} Look" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" onerror="this.style.display='none'; console.error('Image failed to load:', this.src);">
+              <!-- Fallback if image fails -->
+              <div class="portrait-silhouette flex-col gap-4" style="display: none;" id="fallback-${i}">
+                <div style="font-size: ${isGrand ? "120px" : "90px"}; filter: drop-shadow(0 0 40px rgba(212,181,160,0.15));" class="animate-float">${s.silhouette}</div>
+                <div class="font-display italic text-[#d4b5a0]/30 text-2xl mt-4">${s.title}</div>
+              </div>
+              <!-- Decorative Elements -->
+              <div class="floral-element top-12 ${imageRight ? "right-12" : "left-12"} animate-float-delay" style="font-size:40px; color: ${s.accent}; z-index: 10;">❋</div>
+              <div class="floral-element bottom-16 ${imageRight ? "left-8" : "right-8"} animate-float" style="font-size:30px; color: ${s.accent}; z-index: 10;">✿</div>
+              <div class="absolute ${imageRight ? "left-0" : "right-0"} top-1/4 w-px h-1/2 z-5" style="background: linear-gradient(180deg, transparent, ${s.accent}40, transparent);"></div>
+            </div>
+          </div>
+        </section>`;
+          })
+          .join("");
+      }
+
+      renderSections();
+
+      // Intersection Observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document
+        .querySelectorAll(".section-observe")
+        .forEach((el) => observer.observe(el));
+
+      // Element SDK
+      const defaultConfig = {
+        brand_name: "LUXE BEAUTY ATELIER",
+        hero_tagline: "Your Bridal Transformation",
+        closing_quote: "Every Bride Deserves to Feel Extraordinary",
+        background_color: "#faf8f5",
+        surface_color: "#f5ede0",
+        text_color: "#5a4a42",
+        primary_action: "#d4b5a0",
+        secondary_action: "#8b7b72",
+        font_family: "Playfair Display",
+        font_size: 16,
+      };
+
+      function applyConfig(config) {
+        const brand = config.brand_name || defaultConfig.brand_name;
+        const tagline = config.hero_tagline || defaultConfig.hero_tagline;
+        const closing = config.closing_quote || defaultConfig.closing_quote;
+        const font = config.font_family || defaultConfig.font_family;
+        const baseSize = config.font_size || defaultConfig.font_size;
+        const bgColor =
+          config.background_color || defaultConfig.background_color;
+        const textColor = config.text_color || defaultConfig.text_color;
+        const primaryAction =
+          config.primary_action || defaultConfig.primary_action;
+        const secondaryAction =
+          config.secondary_action || defaultConfig.secondary_action;
+        const surfaceColor =
+          config.surface_color || defaultConfig.surface_color;
+
+        document.getElementById("nav-brand").textContent = brand;
+        const heroEl = document.getElementById("hero-tagline");
+        if (heroEl) {
+          const words = tagline.split(" ");
+          heroEl.innerHTML = `<span class="italic">${words.slice(0, 1).join(" ")}</span> ${words.slice(1, Math.ceil(words.length / 2)).join(" ")}<br>${words.slice(Math.ceil(words.length / 2), -1).join(" ")} <span class="gold-shimmer">${words.slice(-1)}</span>`;
+        }
+        const closingEl = document.getElementById("closing-quote");
+        if (closingEl) closingEl.innerHTML = closing;
+
+        document.body.style.backgroundColor = bgColor;
+        document.querySelectorAll(".font-display").forEach((el) => {
+          el.style.fontFamily = `${font}, 'Playfair Display', serif`;
+        });
+        document.querySelectorAll(".font-body").forEach((el) => {
+          el.style.fontSize = `${baseSize}px`;
+        });
+
+        // Apply colors
+        document.querySelectorAll(".btn-luxury").forEach((el) => {
+          el.style.background = `linear-gradient(135deg, ${primaryAction}, ${surfaceColor})`;
+        });
+        document.querySelectorAll(".font-sans-light").forEach((el) => {
+          if (el.classList.contains("btn-luxury")) return;
+          el.style.color = secondaryAction;
+        });
+
+        // Re-observe
+        document
+          .querySelectorAll(".section-observe")
+          .forEach((el) => observer.observe(el));
+      }
+
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => applyConfig(config),
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () =>
+                config.background_color || defaultConfig.background_color,
+              set: (v) => {
+                config.background_color = v;
+                window.elementSdk.setConfig({ background_color: v });
+              },
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (v) => {
+                config.surface_color = v;
+                window.elementSdk.setConfig({ surface_color: v });
+              },
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (v) => {
+                config.text_color = v;
+                window.elementSdk.setConfig({ text_color: v });
+              },
+            },
+            {
+              get: () => config.primary_action || defaultConfig.primary_action,
+              set: (v) => {
+                config.primary_action = v;
+                window.elementSdk.setConfig({ primary_action: v });
+              },
+            },
+            {
+              get: () =>
+                config.secondary_action || defaultConfig.secondary_action,
+              set: (v) => {
+                config.secondary_action = v;
+                window.elementSdk.setConfig({ secondary_action: v });
+              },
+            },
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => {
+              config.font_family = v;
+              window.elementSdk.setConfig({ font_family: v });
+            },
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => {
+              config.font_size = v;
+              window.elementSdk.setConfig({ font_size: v });
+            },
+          },
+        }),
+        mapToEditPanelValues: (config) =>
+          new Map([
+            ["brand_name", config.brand_name || defaultConfig.brand_name],
+            ["hero_tagline", config.hero_tagline || defaultConfig.hero_tagline],
+            [
+              "closing_quote",
+              config.closing_quote || defaultConfig.closing_quote,
+            ],
+          ]),
+      });
+
+      lucide.createIcons();
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'a03d4a9eed6f0e2c',t:'MTc4MDEzOTQxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

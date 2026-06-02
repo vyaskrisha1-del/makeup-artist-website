@@ -1,0 +1,309 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/output.css' %}" />
+
+    <title>Skin Care Services | BB CARE</title>
+  </head>
+
+  <body class="bg-[#FFF9F7] font-poppins overflow-x-hidden">
+    <!-- ================= NAVBAR ================= -->
+    {% include 'core/partials/navbar.html' %}
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative pt-36 pb-24 overflow-hidden">
+      <!-- Background Glow -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div
+          class="absolute top-20 left-20 w-72 h-72 bg-pink-200/40 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute bottom-10 right-10 w-96 h-96 bg-rose-100/50 rounded-full blur-3xl"
+        ></div>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-6">
+        <!-- Back Button -->
+
+        <!-- Top Layout -->
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- LEFT CONTENT -->
+          <div>
+            <p
+              class="uppercase tracking-[5px] text-[#E8A0BF] text-sm mb-5 font-medium"
+            ></p>
+
+            <h1
+              class="text-5xl md:text-7xl leading-tight font-playfair font-semibold text-[#3B2D35] mb-8"
+            >
+              Skin Care <br />
+              & Facial
+            </h1>
+
+            <p class="text-[#6d5c65] text-lg leading-relaxed mb-10 max-w-2xl">
+              Reveal naturally radiant, glowing skin with our premium skin care
+              and facial treatments designed for deep nourishment, hydration,
+              relaxation, and flawless beauty.
+            </p>
+
+            <!-- FEATURES -->
+            <div class="grid grid-cols-2 gap-8 mb-10">
+              <div
+                class="bg-white rounded-3xl p-5 shadow-md border border-pink-100"
+              >
+                <h3 class="text-xl font-semibold text-[#3B2D35] mb-2">
+                  100% Hygiene
+                </h3>
+                <p class="text-[#6d5c65] text-sm">
+                  Premium skin products with luxury care standards.
+                </p>
+              </div>
+
+              <div
+                class="bg-white rounded-3xl p-5 shadow-md border border-pink-100"
+              >
+                <h3 class="text-xl font-semibold text-[#3B2D35] mb-2">
+                  Glow Result
+                </h3>
+                <p class="text-[#6d5c65] text-sm">
+                  Instant fresh, soft, and radiant skin appearance.
+                </p>
+              </div>
+            </div>
+
+            <!-- BUTTON -->
+            <section class="pb-28">
+              <div
+                class="max-w-5xl mx-auto bg-[#3B2D35] rounded-[40px] px-10 py-20 text-center text-white"
+              >
+                <p class="uppercase tracking-[4px] text-pink-200 text-sm"></p>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT IMAGE -->
+          <div class="relative flex justify-center">
+            <div
+              class="absolute w-[420px] h-[420px] bg-pink-200 rounded-full blur-3xl opacity-40"
+            ></div>
+
+            <img
+              src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1200&auto=format&fit=crop"
+              alt="Skin Care"
+              class="relative w-full max-w-[500px] h-[650px] object-cover rounded-[40px] shadow-[0_20px_70px_rgba(232,160,191,0.35)]"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES GRID ================= -->
+    <section class="pb-28">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- SECTION TITLE -->
+        <div class="text-center mb-20">
+          <p class="uppercase tracking-[5px] text-[#E8A0BF] text-sm mb-4">
+            Premium Treatments
+          </p>
+
+          <h2 class="text-5xl font-playfair font-semibold text-[#3B2D35]">
+            Skin Beauty Packages
+          </h2>
+        </div>
+
+        <!-- 2 GRID CARDS -->
+        <div class="grid md:grid-cols-2 gap-10">
+          <!-- ================= CARD 1 ================= -->
+          <div
+            class="group bg-white rounded-[40px] overflow-hidden shadow-lg border border-pink-100 hover:-translate-y-3 hover:shadow-2xl transition-all duration-500"
+          >
+            <!-- IMAGE -->
+            <div class="relative overflow-hidden">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQRYaAp9QrLDzFgVVKEZrMO-uw5wWNh2BLA&s"
+                alt="Skin Cleanup"
+                class="w-full h-80 object-cover group-hover:scale-110 transition duration-700"
+              />
+
+              <div class="absolute inset-0 bg-black/10"></div>
+
+              <!-- PRICE -->
+              <div class="absolute top-5 right-5">
+                <span
+                  class="bg-[#E8A0BF] text-white px-5 py-2 rounded-full text-sm shadow-lg"
+                >
+                  Starts ₹999
+                </span>
+              </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-10">
+              <p class="uppercase tracking-[4px] text-[#E8A0BF] text-xs mb-3">
+                Deep Clean Skin
+              </p>
+
+              <h3
+                class="text-4xl font-playfair font-semibold text-[#3B2D35] mb-6"
+              >
+                Skin Cleanup
+              </h3>
+
+              <p class="text-[#6d5c65] leading-relaxed mb-8">
+                Refresh your skin with deep cleansing and revitalizing
+                treatments designed to remove impurities and restore natural
+                glow.
+              </p>
+
+              <!-- SERVICES -->
+              <div class="space-y-5">
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Fruit Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹350</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Basic Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹400</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Herbal Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹400</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Anti-Tan Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹600</span>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <span class="text-[#3B2D35]">Pearl Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹750</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-[#3B2D35]">Papaya Lime Cleanup</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹850</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= CARD 2 ================= -->
+          <div
+            class="group bg-white rounded-[40px] overflow-hidden shadow-lg border border-pink-100 hover:-translate-y-3 hover:shadow-2xl transition-all duration-500"
+          >
+            <!-- IMAGE -->
+            <div class="relative overflow-hidden">
+              <img
+                src="https://skinkraft.com/cdn/shop/articles/How-To-Care-For-Your-Skin-After-A-Facial-Dos-_-Donts_1024x400.jpg?v=1581076153"
+                alt="Skin Facial"
+                class="w-full h-80 object-cover group-hover:scale-110 transition duration-700"
+              />
+
+              <div class="absolute inset-0 bg-black/10"></div>
+
+              <!-- PRICE -->
+              <div class="absolute top-5 right-5">
+                <span
+                  class="bg-[#E8A0BF] text-white px-5 py-2 rounded-full text-sm shadow-lg"
+                >
+                  Starts ₹1499
+                </span>
+              </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-10">
+              <p class="uppercase tracking-[4px] text-[#E8A0BF] text-xs mb-3">
+                Luxury Facial Care
+              </p>
+
+              <h3
+                class="text-4xl font-playfair font-semibold text-[#3B2D35] mb-6"
+              >
+                Skin Facial & Therapies
+              </h3>
+
+              <p class="text-[#6d5c65] leading-relaxed mb-8">
+                Indulge in relaxing facial therapies that deeply nourish your
+                skin, improve texture, and provide long-lasting radiance.
+              </p>
+
+              <!-- SERVICES -->
+              <div class="space-y-5">
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Tan Removing Treatment</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹1000</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]"
+                    >Vita-lift Anti Ageing Treatment</span
+                  >
+                  <span class="text-[#E8A0BF] font-semibold">₹1200</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]"
+                    >Lotus Pro Skin Tightening Treatment</span
+                  >
+                  <span class="text-[#E8A0BF] font-semibold">₹1350</span>
+                </div>
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">Vita C Aroma Treatment</span>
+                  <span class="text-[#E8A0BF] font-semibold">₹1550</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center border-b border-pink-100 pb-3"
+                >
+                  <span class="text-[#3B2D35]">O3 Bridal Glow Treatment </span>
+                  <span class="text-[#E8A0BF] font-semibold">₹1850</span>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <span class="text-[#3B2D35]"
+                    >Vedicline Professional Anti Ageing Treatment</span
+                  >
+                  <span class="text-[#E8A0BF] font-semibold">₹1850</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,285 @@
+<section id="gallery" class="gallery-section">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="gallery-title">Moments We Created❤️</h2>
+
+    <p class="gallery-subtitle">
+      Luxury bridal transformations, glamorous party looks, flawless beauty
+      artistry, and unforgettable moments by
+      <span>BB CARE</span>.
+    </p>
+
+    <div class="gallery">
+      <!-- Image 1 -->
+      <div class="gallery-item tall">
+        <img src="static/images/gallery1 (2).png" alt="Bridal Glam" />
+        <div class="overlay">
+          <h3>Royal Wedding Glam❤️</h3>
+          <p>Elegant sider transformation with timeless luxury makeup.</p>
+        </div>
+      </div>
+
+      <!-- Image 2 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery2.png" alt="Party Glam" />
+        <div class="overlay">
+          <h3>Bollywood Sangeet Vibe💃</h3>
+          <p>Soft glam makeup designed for bollywood rock performances.</p>
+        </div>
+      </div>
+
+      <!-- Video 1 -->
+      <div class="gallery-item">
+        <video autoplay muted loop playsinline>
+          <source src="static/images/gallery7.mp4" type="video/mp4" />
+        </video>
+        <div class="play-btn">▶</div>
+        <div class="overlay">
+          <h3>Haldi Harmony🤍</h3>
+          <p>Traditional haldi ceremony makeup with a modern twist.</p>
+        </div>
+      </div>
+
+      <!-- Image 3 -->
+      <div class="gallery-item wide">
+        <img src="static/images/gallery3.png" alt="Reception Look" />
+        <div class="overlay">
+          <h3>Floral Fiesta🌺</h3>
+          <p>=Blooming beauty in every festive moment.</p>
+        </div>
+      </div>
+
+      <!-- Image 4 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery4.png" alt="Hair Styling" />
+        <div class="overlay">
+          <h3>Braided Hair Styling💕</h3>
+          <p>Royal touch and premium hair finish for every event.</p>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="gallery-item tall">
+        <video autoplay muted loop playsinline>
+          <source src="static/images/gallery8 (3).mp4" type="video/mp4" />
+        </video>
+        <div class="play-btn">▶</div>
+        <div class="overlay">
+          <h3>Transformation Hair Tutorial✂️</h3>
+          <p>Learn the secrets of stunning hair transformations.</p>
+        </div>
+      </div>
+
+      <!-- Image 5 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery5 (2).png" alt="Soft Glam" />
+        <div class="overlay">
+          <h3>Princess Paradise👑</h3>
+          <p>Natural glow finish crafted with premium products.</p>
+        </div>
+      </div>
+
+      <!-- Image 6 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery6.png" alt="Skin Glow" />
+        <div class="overlay">
+          <h3>Gujarati Touch✨</h3>
+          <p>Traditional Gujarati makeup with a modern twist.</p>
+        </div>
+      </div>
+
+      <!-- Image 8 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery10.png" alt="Party Glam" />
+        <div class="overlay">
+          <h3>Mother-Daughter Duo💖</h3>
+          <p>love and beauty shared between generations.</p>
+        </div>
+      </div>
+
+      <!-- Image 7 -->
+      <div class="gallery-item">
+        <img src="static/images/gallery11 (3).png" alt="Beauty Makeup" />
+        <div class="overlay">
+          <h3>Engagement Look💍</h3>
+          <p>Sister is the main character,stealing hearts with her smile.</p>
+        </div>
+      </div>
+
+      <!-- Video 3 -->
+      <div class="gallery-item wide">
+        <video autoplay muted loop playsinline>
+          <source src="static/images/gallery9 (3).mp4" type="video/mp4" />
+        </video>
+        <div class="play-btn">▶</div>
+        <div class="overlay">
+          <h3>Meet Influencer🎥</h3>
+          <p>Get to know our featured beauty influencer and her journey.</p>
+        </div>
+      </div>
+      <!-- Image 12 -->
+      <div class="gallery-item tall">
+        <img src="static/images/gallery12.png" alt="Bridal Glam" />
+        <div class="overlay">
+          <h3>Gujarati Glam💫</h3>
+          <p>Draped in culture,glowing with grace.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .gallery-section {
+    padding: 120px 8%;
+    background: #fff9f7;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-title {
+    text-align: center;
+    font-size: 58px;
+    font-family: "Playfair Display", serif;
+    color: #3b2d35;
+    margin-bottom: 18px;
+  }
+
+  .gallery-subtitle {
+    text-align: center;
+    color: #6d5c65;
+    margin-bottom: 80px;
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .gallery-subtitle span {
+    color: #e8a0bf;
+    font-weight: 600;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    grid-auto-flow: dense;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #fff;
+    min-height: 320px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-8px);
+  }
+
+  .gallery img,
+  .gallery video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .gallery-item:hover img,
+  .gallery-item:hover video {
+    transform: scale(1.08);
+  }
+
+  .tall {
+    grid-row: span 2;
+  }
+
+  .wide {
+    grid-column: span 2;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 25px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.2),
+      transparent
+    );
+    opacity: 0;
+    transition: 0.4s ease;
+    z-index: 2;
+  }
+
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .overlay h3 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 8px;
+    font-family: "Playfair Display", serif;
+  }
+
+  .overlay p {
+    color: #f6d6e2;
+    font-size: 14px;
+  }
+
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75px;
+    height: 75px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    z-index: 3;
+    transition: 0.3s;
+  }
+
+  .gallery-item:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  @media (max-width: 900px) {
+    .wide {
+      grid-column: span 1;
+    }
+
+    .gallery-title {
+      font-size: 42px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .overlay {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gallery-title {
+      font-size: 34px;
+    }
+
+    .gallery-subtitle {
+      font-size: 16px;
+    }
+  }
+</style>

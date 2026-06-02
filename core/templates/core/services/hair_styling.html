@@ -1,0 +1,129 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hair Styling | BB CARE</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/output.css' %}" />
+  </head>
+
+  <body class="bg-[#FFF9F7] font-poppins">
+    <div class="mb-12"></div>
+
+    <!-- HERO SECTION -->
+    <section class="py-16">
+      <div
+        class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center"
+      >
+        <!-- LEFT CONTENT -->
+        <div>
+          <p class="uppercase tracking-[5px] text-[#E8A0BF] text-sm mb-5"></p>
+
+          <h1
+            class="text-5xl md:text-6xl font-playfair font-semibold text-[#3B2D35] leading-tight"
+          >
+            Hair Styling
+          </h1>
+
+          <p class="mt-8 text-[#6d5c65] text-lg leading-relaxed">
+            Elevate your beauty with premium hair styling and luxurious
+            treatments crafted to give you elegant, smooth, and glamorous hair
+            for every occasion.
+          </p>
+
+          <!-- PACKAGES -->
+          <div
+            class="mt-10 bg-white rounded-[30px] p-8 shadow-lg border border-pink-100"
+          >
+            <h3 class="text-2xl font-playfair text-[#3B2D35] mb-9">
+              Hair Packages
+            </h3>
+
+            <div class="space-y-5">
+              <div class="flex justify-between items-center border-b pb-4">
+                <div>
+                  <h4 class="font-semibold text-[#3B2D35]">
+                    Hair Cut & Styling
+                  </h4>
+
+                  <p class="text-sm text-[#6d5c65]">
+                    Trendy cuts with luxury styling
+                  </p>
+                </div>
+
+                <span class="text-[#E8A0BF] font-semibold"> ₹300 </span>
+              </div>
+
+              <div class="flex justify-between items-center border-b pb-4">
+                <div>
+                  <h4 class="font-semibold text-[#3B2D35]">Hair Spa</h4>
+
+                  <p class="text-sm text-[#6d5c65]">
+                    Deep nourishment & smoothening
+                  </p>
+                </div>
+
+                <span class="text-[#E8A0BF] font-semibold"> ₹600 </span>
+              </div>
+
+              <div class="flex justify-between items-center border-b pb-4">
+                <div>
+                  <h4 class="font-semibold text-[#3B2D35]">Hair Treatment</h4>
+
+                  <p class="text-sm text-[#6d5c65]">
+                    Hair repair & rejuvenation therapies
+                  </p>
+                </div>
+
+                <span class="text-[#E8A0BF] font-semibold"> ₹4,000 </span>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <div>
+                  <h4 class="font-semibold text-[#3B2D35]">Hair Coloring</h4>
+
+                  <p class="text-sm text-[#6d5c65]">
+                    Premium shades & highlights
+                  </p>
+                </div>
+
+                <span class="text-[#E8A0BF] font-semibold"> ₹3,000 </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BUTTON -->
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="relative flex justify-center">
+          <!-- GLOW -->
+          <div
+            class="absolute w-[420px] h-[420px] bg-pink-200 rounded-full blur-3xl opacity-40"
+          ></div>
+
+          <!-- IMAGE -->
+          <img
+            src="https://cdn.shopify.com/s/files/1/0591/6422/9806/files/Feather_Cut.jpg?v=1763448831"
+            alt="Hair Styling"
+            class="relative w-full max-w-[500px] h-[650px] object-cover rounded-[40px] shadow-[0_20px_60px_rgba(232,160,191,0.25)]"
+          />
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
