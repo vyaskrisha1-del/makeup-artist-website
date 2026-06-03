@@ -1,15 +1,13 @@
 from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
-from urllib.parse import quote
 from django.db import transaction
+from django.http import JsonResponse
 
 from .forms import BookingForm
-from .models import Booking
-from django.http import JsonResponse
-from datetime import datetime, date
 from .models import Booking
 
 def get_available_slots(request):
@@ -132,15 +130,14 @@ def pre_wedding(request):
 def generate_slots(start_slot, duration):
     slots = []
 
-    # convert string to integer
-    duration = int(duration)
+    try:
+        duration = int(duration)
+        start_time = datetime.strptime(start_slot, "%I:%M %p")
+    except Exception as e:
+        print("Slot generation error:", e)
+        return []
 
-    start_time = datetime.strptime(start_slot, "%I:%M %p")
-
-    # convert duration to number of 30-min slots
     total_slots = duration // 30
-
-    # if service is less than 30 min, still block 1 slot
     if total_slots == 0:
         total_slots = 1
 
@@ -152,160 +149,103 @@ def generate_slots(start_slot, duration):
 # ----------------------------
 # Booking View
 # ----------------------------
-# ----------------------------
-# Booking View
-# ----------------------------
 def booking_view(request):
+
+    form = BookingForm(request.POST or None)
 
     if request.method == "POST":
 
-        print("=" * 50)
-        print("POST REQUEST RECEIVED")
+        print("=" * 40)
+        print("BOOKING REQUEST RECEIVED")
         print(request.POST)
-        print("=" * 50)
+        print("=" * 40)
 
-        form = BookingForm(request.POST)
+        if form.is_valid():
 
-        if not form.is_valid():
+            try:
+                booking = form.save(commit=False)
 
-            print("FORM INVALID")
-            print(form.errors)
+                print("FORM VALID")
+                print("SLOT:", booking.slot)
 
-            return render(
-                request,
-                'core/booking.html',
-                {'form': form}
-            )
+                duration = booking.service.duration
+                required_slots = generate_slots(booking.slot, duration)
 
-        try:
+                print("REQUIRED SLOTS:", required_slots)
 
-            booking = form.save(commit=False)
+                with transaction.atomic():
 
-            print("FORM VALID")
-            print("CUSTOMER:", booking.customer_name)
-            print("DATE:", booking.appointment_date)
-            print("SLOT:", booking.slot)
+                    # check overlapping bookings
+                    conflict = Booking.objects.filter(
+                        appointment_date=booking.appointment_date,
+                        slot__in=required_slots
+                    ).exists()
 
-            duration = booking.service.duration
+                    if conflict:
+                        messages.error(request, "Slot already booked.")
+                        return render(request, "core/booking.html", {"form": form})
 
-            required_slots = generate_slots(
-                booking.slot,
-                duration
-            )
+                    booking.save()
+                    print("BOOKING SAVED:", booking.id)
 
-            print("REQUIRED SLOTS:", required_slots)
+                # -----------------------------
+                # EMAILS (SAFE - WON'T BREAK FLOW)
+                # -----------------------------
 
-            with transaction.atomic():
+                try:
+                    if booking.email:
+                        send_mail(
+                            "Booking Received",
+                            f"""
+Hi {booking.customer_name},
 
-                print("=" * 50)
-                print("CHECKING BOOKINGS")
-
-                bookings = Booking.objects.filter(
-                    appointment_date=booking.appointment_date
-                )
-
-                print("ALL BOOKINGS ON THIS DATE:")
-
-                for b in bookings:
-                    print("BOOKED SLOT:", b.slot)
-
-                slot_exists = Booking.objects.select_for_update().filter(
-                    appointment_date=booking.appointment_date,
-                    slot__in=required_slots
-                ).exists()
-
-                print("SLOT EXISTS:", slot_exists)
-
-                if slot_exists:
-
-                    messages.error(
-                        request,
-                        "Sorry, this slot is already booked."
-                    )
-
-                    return render(
-                        request,
-                        'core/booking.html',
-                        {'form': form}
-                    )
-
-                booking.save()
-
-                print("BOOKING SAVED SUCCESSFULLY")
-
-            # Customer Email
-            if booking.email:
-
-                send_mail(
-                    "Booking Request Received",
-                    f"""
-Hello {booking.customer_name},
-
-Your booking request has been received.
+Your booking is received.
 
 Service: {booking.service.name}
 Date: {booking.appointment_date}
 Slot: {booking.slot}
 
-We will confirm your appointment shortly.
+We will confirm soon.
 """,
-                    settings.EMAIL_HOST_USER,
-                    [booking.email],
-                    fail_silently=False
-                )
+                            settings.EMAIL_HOST_USER,
+                            [booking.email],
+                            fail_silently=True
+                        )
+                except Exception as e:
+                    print("Customer email failed:", e)
 
-                print("CUSTOMER EMAIL SENT")
-
-            # Admin Email
-            send_mail(
-                "New Booking Received",
-                f"""
-Customer Name: {booking.customer_name}
+                try:
+                    send_mail(
+                        "New Booking",
+                        f"""
+Customer: {booking.customer_name}
 Phone: {booking.phone}
 Email: {booking.email}
 Service: {booking.service.name}
 Date: {booking.appointment_date}
 Slot: {booking.slot}
-Location: {booking.location_type}
-Address: {booking.address}
-Notes: {booking.notes}
 """,
-                settings.EMAIL_HOST_USER,
-                ['bbcare1402@gmail.com'],
-                fail_silently=False
-            )
+                        settings.EMAIL_HOST_USER,
+                        ["bbcare1402@gmail.com"],
+                        fail_silently=True
+                    )
+                except Exception as e:
+                    print("Admin email failed:", e)
 
-            print("ADMIN EMAIL SENT")
+                return redirect("booking_success")
 
-            return redirect('booking_success')
+            except Exception as e:
+                print("BOOKING ERROR:", e)
+                messages.error(request, f"Error: {e}")
 
-        except Exception as e:
+        else:
+            print("FORM ERRORS:", form.errors)
 
-            print("=" * 50)
-            print("ERROR OCCURRED")
-            print(str(e))
-            print("=" * 50)
+    return render(request, "core/booking.html", {"form": form})
 
-            messages.error(
-                request,
-                f"Error: {str(e)}"
-            )
 
-            return render(
-                request,
-                'core/booking.html',
-                {'form': form}
-            )
-
-    form = BookingForm()
-
-    return render(
-        request,
-        'core/booking.html',
-        {'form': form}
-    )
 # ----------------------------
 # Success View
 # ----------------------------
 def booking_success(request):
-    return render(request, 'core/booking_success.html')
+    return render(request, "core/booking_success.html")
