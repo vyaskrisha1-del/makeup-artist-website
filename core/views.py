@@ -165,17 +165,26 @@ def booking_view(request):
             try:
                 booking = form.save(commit=False)
 
+                # 🚨 SAFETY CHECK 1
+                if not booking.service:
+                    messages.error(request, "Service not selected")
+                    return render(request, "core/booking.html", {"form": form})
+
+                if not booking.slot:
+                    messages.error(request, "Slot not selected")
+                    return render(request, "core/booking.html", {"form": form})
+
                 print("FORM VALID")
                 print("SLOT:", booking.slot)
 
                 duration = booking.service.duration
+
                 required_slots = generate_slots(booking.slot, duration)
 
                 print("REQUIRED SLOTS:", required_slots)
 
                 with transaction.atomic():
 
-                    # check overlapping bookings
                     conflict = Booking.objects.filter(
                         appointment_date=booking.appointment_date,
                         slot__in=required_slots
@@ -189,7 +198,7 @@ def booking_view(request):
                     print("BOOKING SAVED:", booking.id)
 
                 # -----------------------------
-                # EMAILS (SAFE - WON'T BREAK FLOW)
+                # EMAILS (FULLY SAFE)
                 # -----------------------------
 
                 try:
@@ -236,7 +245,8 @@ Slot: {booking.slot}
 
             except Exception as e:
                 print("BOOKING ERROR:", e)
-                messages.error(request, f"Error: {e}")
+                messages.error(request, "Something went wrong. Please try again.")
+                return render(request, "core/booking.html", {"form": form})
 
         else:
             print("FORM ERRORS:", form.errors)
