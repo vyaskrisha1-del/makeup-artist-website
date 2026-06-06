@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import path
+from .views import booking_view, booking_success
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -54,5 +56,12 @@ urlpatterns = [
     path('get-available-slots/',
           views.get_available_slots,
             name='get_available_slots'),
+    
+ 
+
+urlpatterns = [
+    path('booking/', booking_view, name='booking'),
+    path('booking-success/', booking_success, name='booking_success'),
+]
             
 ]
