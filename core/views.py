@@ -251,7 +251,7 @@ def booking_view(request):
 #         else:
 #             print("FORM ERRORS:", form.errors)
 
-#     return render(request, "core/booking.html", {"form": form})
+    return render(request, "core/booking.html", {"form": form})
 
 
 # ----------------------------
