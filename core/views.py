@@ -9,23 +9,6 @@ from django.http import JsonResponse
 
 from .forms import BookingForm
 from .models import Booking
-from django.core.mail import send_mail
-from django.conf import settings
-from .utilis.emails import send_resend_email
-
-
-def safe_send_mail(subject, message, recipient_list):
-    try:
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=recipient_list,
-            fail_silently=False
-        )
-        print(f"EMAIL SENT → {recipient_list}")
-    except Exception as e:
-        print("EMAIL FAILED:", e)
 
 def get_available_slots(request):
 
@@ -166,10 +149,6 @@ def generate_slots(start_slot, duration):
 # ----------------------------
 # Booking View
 # ----------------------------
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.db import transaction
-
 def booking_view(request):
 
     form = BookingForm(request.POST or None)
@@ -186,17 +165,26 @@ def booking_view(request):
             try:
                 booking = form.save(commit=False)
 
+                # 🚨 SAFETY CHECK 1
+                if not booking.service:
+                    messages.error(request, "Service not selected")
+                    return render(request, "core/booking.html", {"form": form})
+
+                if not booking.slot:
+                    messages.error(request, "Slot not selected")
+                    return render(request, "core/booking.html", {"form": form})
+
                 print("FORM VALID")
                 print("SLOT:", booking.slot)
 
                 duration = booking.service.duration
+
                 required_slots = generate_slots(booking.slot, duration)
 
                 print("REQUIRED SLOTS:", required_slots)
 
                 with transaction.atomic():
 
-                    # check overlapping bookings
                     conflict = Booking.objects.filter(
                         appointment_date=booking.appointment_date,
                         slot__in=required_slots
@@ -210,14 +198,14 @@ def booking_view(request):
                     print("BOOKING SAVED:", booking.id)
 
                 # -----------------------------
-                # SAFE EMAIL SYSTEM
+                # EMAILS (FULLY SAFE)
                 # -----------------------------
 
-                # Customer email
-                if booking.email:
-                    safe_send_mail(
-                        subject="Booking Received ✨ BB CARE",
-                        message=f"""
+                try:
+                    if booking.email:
+                        send_mail(
+                            "Booking Received",
+                            f"""
 Hi {booking.customer_name},
 
 Your booking is received.
@@ -228,13 +216,17 @@ Slot: {booking.slot}
 
 We will confirm soon.
 """,
-                        recipient_list=[booking.email]
-                    )
+                            settings.EMAIL_HOST_USER,
+                            [booking.email],
+                            fail_silently=False
+                        )
+                except Exception as e:
+                    print("Customer email failed:", e)
 
-                # Admin email
-                safe_send_mail(
-                    subject="New Booking Alert - BB CARE",
-                    message=f"""
+                try:
+                    send_mail(
+                        "New Booking",
+                        f"""
 Customer: {booking.customer_name}
 Phone: {booking.phone}
 Email: {booking.email}
@@ -242,20 +234,26 @@ Service: {booking.service.name}
 Date: {booking.appointment_date}
 Slot: {booking.slot}
 """,
-                    recipient_list=["bbcare1402@gmail.com"]
-                )
+                        settings.EMAIL_HOST_USER,
+                        ["bbcare1402@gmail.com"],
+                        fail_silently=False
+                    )
+                except Exception as e:
+                    print("Admin email failed:", e)
 
-                # SUCCESS REDIRECT
                 return redirect("booking_success")
 
             except Exception as e:
                 print("BOOKING ERROR:", e)
                 messages.error(request, "Something went wrong. Please try again.")
+                return render(request, "core/booking.html", {"form": form})
 
         else:
             print("FORM ERRORS:", form.errors)
 
     return render(request, "core/booking.html", {"form": form})
+
+
 # ----------------------------
 # Success View
 # ----------------------------
