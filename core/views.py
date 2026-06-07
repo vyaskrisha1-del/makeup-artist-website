@@ -269,7 +269,7 @@ def test_email(request):
         "Test Mail",
         "Email is working",
         settings.EMAIL_HOST_USER,
-        ["yourpersonalemail@gmail.com"],
+        ["bbcare1402@gmail.com"],
         fail_silently=False
     )
     return HttpResponse("Email Sent")
