@@ -40,21 +40,19 @@ urlpatterns = [
         name="pre_wedding",
     ),
 
-    path(
-        "booking/",
-        views.booking_view,
-        name="booking"
-    ),
+    # Booking
+    path('booking/',
+          views.booking_view,
+            name='booking'),
 
-    path(
-        "booking-success/",
-        views.booking_success,
-        name="booking_success"
-    ),
 
-    path(
-        "get-available-slots/",
-        views.get_available_slots,
-        name="get_available_slots"
-    ),
+    path('booking-success/',
+          views.booking_success,
+            name='booking_success'),
+
+
+    path('get-available-slots/',
+          views.get_available_slots,
+            name='get_available_slots'),
+            
 ]
