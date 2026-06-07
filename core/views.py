@@ -130,26 +130,11 @@ def booking_success(request):
 # TEST EMAIL
 # ----------------------------
 def test_email(request):
-
     send_mail(
-        "Test Email",
-        "Email working",
-        settings.EMAIL_HOST_USER,
-        ["bbcare1402@gmail.com"],
+        subject="Test Email",
+        message="This is working",
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=["bbcare1402@gmail.com"],
         fail_silently=False
     )
-
-    return HttpResponse("Email sent")
-
-def test_email(request):
-    from django.core.mail import send_mail
-
-    send_mail(
-        "Test Email",
-        "This is working",
-        settings.EMAIL_HOST_USER,
-        ["bbcare1402@gmail.com"],
-        fail_silently=False
-    )
-
     return HttpResponse("Email Sent")
