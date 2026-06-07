@@ -136,7 +136,20 @@ def test_email(request):
         "Email working",
         settings.EMAIL_HOST_USER,
         ["bbcare1402@gmail.com"],
-        fail_silently=True
+        fail_silently=False
     )
 
     return HttpResponse("Email sent")
+
+def test_email(request):
+    from django.core.mail import send_mail
+
+    send_mail(
+        "Test Email",
+        "This is working",
+        settings.EMAIL_HOST_USER,
+        ["bbcare1402@gmail.com"],
+        fail_silently=False
+    )
+
+    return HttpResponse("Email Sent")
