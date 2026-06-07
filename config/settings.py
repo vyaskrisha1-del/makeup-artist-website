@@ -139,3 +139,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+RESEND_API_KEY = "re_NTiDffWo_J3EXGFdRGjDc2qqhw3nNKLHf"
+
+ADMIN_EMAIL = "bbcare1402@gmail.com"

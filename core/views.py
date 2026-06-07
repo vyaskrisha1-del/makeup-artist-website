@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.db import transaction
 from django.http import JsonResponse
+from .utils.emails import send_resend_email
 
 from .forms import BookingForm
 from .models import Booking
@@ -203,12 +204,13 @@ def booking_view(request):
 
                 try:
                     if booking.email:
-                        send_mail(
-                            "Booking Received",
-                            f"""
+                      send_resend_email(
+            "Booking Received - BB CARE",
+            f"""
 Hi {booking.customer_name},
 
 Your booking is received.
+
 
 Service: {booking.service.name}
 Date: {booking.appointment_date}
@@ -224,9 +226,9 @@ We will confirm soon.
                     print("Customer email failed:", e)
 
                 try:
-                    send_mail(
-                        "New Booking",
-                        f"""
+                    send_resend_email(
+        "New Booking Alert - BB CARE",
+        f"""
 Customer: {booking.customer_name}
 Phone: {booking.phone}
 Email: {booking.email}
