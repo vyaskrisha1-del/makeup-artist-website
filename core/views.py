@@ -218,7 +218,7 @@ We will confirm soon.
 """,
                             settings.EMAIL_HOST_USER,
                             [booking.email],
-                            fail_silently=True
+                            fail_silently=False
                         )
                 except Exception as e:
                     print("Customer email failed:", e)
@@ -236,7 +236,7 @@ Slot: {booking.slot}
 """,
                         settings.EMAIL_HOST_USER,
                         ["bbcare1402@gmail.com"],
-                        fail_silently=True
+                        fail_silently=False
                     )
                 except Exception as e:
                     print("Admin email failed:", e)
