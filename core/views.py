@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from .forms import BookingForm
 from .models import Booking
 
+
 def get_available_slots(request):
 
     selected_date = request.GET.get('date')
