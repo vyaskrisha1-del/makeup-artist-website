@@ -166,7 +166,6 @@ def booking_view(request):
             try:
                 booking = form.save(commit=False)
 
-                # 🚨 SAFETY CHECK 1
                 if not booking.service:
                     messages.error(request, "Service not selected")
                     return render(request, "core/booking.html", {"form": form})
@@ -179,7 +178,6 @@ def booking_view(request):
                 print("SLOT:", booking.slot)
 
                 duration = booking.service.duration
-
                 required_slots = generate_slots(booking.slot, duration)
 
                 print("REQUIRED SLOTS:", required_slots)
@@ -199,36 +197,40 @@ def booking_view(request):
                     print("BOOKING SAVED:", booking.id)
 
                 # -----------------------------
-                # EMAILS (FULLY SAFE)
+                # CUSTOMER EMAIL
                 # -----------------------------
 
                 try:
                     if booking.email:
-                      send_resend_email(
-            "Booking Received - BB CARE",
-            f"""
+                        send_resend_email(
+                            "Booking Received - BB CARE",
+                            f"""
 Hi {booking.customer_name},
 
 Your booking is received.
-
 
 Service: {booking.service.name}
 Date: {booking.appointment_date}
 Slot: {booking.slot}
 
 We will confirm soon.
+
+Thank You,
+BB CARE
 """,
-                            settings.EMAIL_HOST_USER,
-                            [booking.email],
-                            fail_silently=False
+                            booking.email
                         )
                 except Exception as e:
                     print("Customer email failed:", e)
 
+                # -----------------------------
+                # ADMIN EMAIL
+                # -----------------------------
+
                 try:
                     send_resend_email(
-        "New Booking Alert - BB CARE",
-        f"""
+                        "New Booking Alert - BB CARE",
+                        f"""
 Customer: {booking.customer_name}
 Phone: {booking.phone}
 Email: {booking.email}
@@ -236,9 +238,7 @@ Service: {booking.service.name}
 Date: {booking.appointment_date}
 Slot: {booking.slot}
 """,
-                        settings.EMAIL_HOST_USER,
-                        ["bbcare1402@gmail.com"],
-                        fail_silently=False
+                        "bbcare1402@gmail.com"
                     )
                 except Exception as e:
                     print("Admin email failed:", e)
@@ -247,14 +247,20 @@ Slot: {booking.slot}
 
             except Exception as e:
                 print("BOOKING ERROR:", e)
-                messages.error(request, "Something went wrong. Please try again.")
-                return render(request, "core/booking.html", {"form": form})
+                messages.error(
+                    request,
+                    "Something went wrong. Please try again."
+                )
+                return render(
+                    request,
+                    "core/booking.html",
+                    {"form": form}
+                )
 
         else:
             print("FORM ERRORS:", form.errors)
 
     return render(request, "core/booking.html", {"form": form})
-
 
 # ----------------------------
 # Success View
