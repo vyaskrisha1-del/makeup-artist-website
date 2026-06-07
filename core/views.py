@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 from datetime import datetime, timedelta, date
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -69,7 +68,7 @@ def get_available_slots(request):
     for slot in all_slots:
 
         slot_datetime = datetime.strptime(
-            f"{selected_date} {slot}",
+          f"{selected_date_obj} {slot}"
             "%Y-%m-%d %I:%M %p"
         )
 
@@ -82,16 +81,19 @@ def get_available_slots(request):
 
         # REMOVE BOOKED SLOTS
 
+    for slot in all_slots:
+
         if slot in booked_slots:
             continue
 
-        available_slots.append(slot)
-        print("BOOKED:", list(booked_slots))
-        print("AVAILABLE:", available_slots)
+    available_slots.append(slot)
+    print("BOOKED:", list(booked_slots))
+    print("AVAILABLE:", available_slots)
 
     return JsonResponse({
-        'slots': available_slots
-    })
+    'success': True,
+    'slots': available_slots
+})
 # ----------------------------
 # Home & Service Views
 # ----------------------------
@@ -218,7 +220,7 @@ We will confirm soon.
 """,
                             settings.EMAIL_HOST_USER,
                             [booking.email],
-                            fail_silently=True
+                            fail_silently=False
                         )
                 except Exception as e:
                     print("Customer email failed:", e)
