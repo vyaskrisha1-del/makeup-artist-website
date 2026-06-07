@@ -228,7 +228,7 @@ def booking_view(request):
                 # EMAILS (FULLY SAFE)
                 # -----------------------------
 
-                if boking.email:
+                if booking.email:
                     customer_message = f"""
                 Hi {booking.customer_name},
                 Your booking is received.
