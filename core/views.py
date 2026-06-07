@@ -259,3 +259,17 @@ Slot: {booking.slot}
 # ----------------------------
 def booking_success(request):
     return render(request, "core/booking_success.html")
+
+from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
+
+def test_email(request):
+    send_mail(
+        "Test Mail",
+        "Email is working",
+        settings.EMAIL_HOST_USER,
+        ["yourpersonalemail@gmail.com"],
+        fail_silently=False
+    )
+    return HttpResponse("Email Sent")
