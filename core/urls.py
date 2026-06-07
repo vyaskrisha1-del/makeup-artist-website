@@ -16,4 +16,4 @@ urlpatterns = [
     path("get-available-slots/", views.get_available_slots, name="get_available_slots"),
 
     path("test-email/", views.test_email),
-]
+]       
