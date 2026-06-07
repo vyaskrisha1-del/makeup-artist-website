@@ -259,3 +259,15 @@ Slot: {booking.slot}
 # ----------------------------
 def booking_success(request):
     return render(request, "core/booking_success.html")
+
+import smtplib
+from django.http import HttpResponse
+
+def smtp_test(request):
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+        server.starttls()
+        server.login("your_email@gmail.com", "your_app_password")
+        return HttpResponse("SMTP WORKING")
+    except Exception as e:
+        return HttpResponse(f"FAILED: {e}")

@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("smtp-test/", views.smtp_test),
     path("", views.home, name="home"),
 
     path(
