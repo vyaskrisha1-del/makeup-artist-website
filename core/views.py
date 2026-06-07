@@ -201,55 +201,55 @@ def booking_view(request):
                 # EMAILS (FULLY SAFE)
                 # -----------------------------
 
-#                 try:
-#                     if booking.email:
-#                         send_mail(
-#                             "Booking Received",
-#                             f"""
-# Hi {booking.customer_name},
+                try:
+                    if booking.email:
+                        send_mail(
+                            "Booking Received",
+                            f"""
+Hi {booking.customer_name},
 
-# Your booking is received.
+Your booking is received.
 
-# Service: {booking.service.name}
-# Date: {booking.appointment_date}
-# Slot: {booking.slot}
+Service: {booking.service.name}
+Date: {booking.appointment_date}
+Slot: {booking.slot}
 
-# We will confirm soon.
-# """,
-#                             settings.EMAIL_HOST_USER,
-#                             [booking.email],
-#                             fail_silently=True
-#                         )
-#                 except Exception as e:
-#                     print("Customer email failed:", e)
+We will confirm soon.
+""",
+                            settings.EMAIL_HOST_USER,
+                            [booking.email],
+                            fail_silently=True
+                        )
+                except Exception as e:
+                    print("Customer email failed:", e)
 
-#                 try:
-#                     send_mail(
-#                         "New Booking",
-#                         f"""
-# Customer: {booking.customer_name}
-# Phone: {booking.phone}
-# Email: {booking.email}
-# Service: {booking.service.name}
-# Date: {booking.appointment_date}
-# Slot: {booking.slot}
-# """,
-#                         settings.EMAIL_HOST_USER,
-#                         ["bbcare1402@gmail.com"],
-#                         fail_silently=True
-#                     )
-#                 except Exception as e:
-#                     print("Admin email failed:", e)
+                try:
+                    send_mail(
+                        "New Booking",
+                        f"""
+Customer: {booking.customer_name}
+Phone: {booking.phone}
+Email: {booking.email}
+Service: {booking.service.name}
+Date: {booking.appointment_date}
+Slot: {booking.slot}
+""",
+                        settings.EMAIL_HOST_USER,
+                        ["bbcare1402@gmail.com"],
+                        fail_silently=True
+                    )
+                except Exception as e:
+                    print("Admin email failed:", e)
 
-#                 return redirect("booking_success")
+                return redirect("booking_success")
 
-#             except Exception as e:
-#                 print("BOOKING ERROR:", e)
-#                 messages.error(request, "Something went wrong. Please try again.")
-#                 return render(request, "core/booking.html", {"form": form})
+            except Exception as e:
+                print("BOOKING ERROR:", e)
+                messages.error(request, "Something went wrong. Please try again.")
+                return render(request, "core/booking.html", {"form": form})
 
-#         else:
-#             print("FORM ERRORS:", form.errors)
+        else:
+            print("FORM ERRORS:", form.errors)
 
     return render(request, "core/booking.html", {"form": form})
 
