@@ -6,10 +6,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.db import transaction
 from django.http import JsonResponse
+import socket
+import smtplib
+import time
 
 from .forms import BookingForm
 from .models import Booking
-
 
 def get_available_slots(request):
 
@@ -147,6 +149,30 @@ def generate_slots(start_slot, duration):
         slots.append(slot_time.strftime("%I:%M %p"))
 
     return slots
+
+def safe_send_mail(subject, message, recipients):
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=recipients,
+            fail_silently=False,
+        )
+
+        print(f"EMAIL SENT → {recipients}")
+        return True
+
+    except (
+        smtplib.SMTPException,
+        socket.gaierror,
+        TimeoutError,
+        ConnectionError,
+        OSError,
+    ) as e:
+
+        print(f"EMAIL ERROR → {e}")
+        return False
 # ----------------------------
 # Booking View
 # ----------------------------
@@ -202,45 +228,41 @@ def booking_view(request):
                 # EMAILS (FULLY SAFE)
                 # -----------------------------
 
-                try:
-                    if booking.email:
-                        send_mail(
-                            "Booking Received",
-                            f"""
-Hi {booking.customer_name},
+                if boking.email:
+                    customer_message = f"""
+                Hi {booking.customer_name},
+                Your booking is received.
+                Service: {booking.service.name}
+                Date: {booking.appointment_date}
+                Slot: {booking.slot}
+                We will confirm soon.
 
-Your booking is received.
+                Thank You,
+                BB CARE
+                """
+                safe_send_mail(
+                    "Booking Received - BB CARE",
+                    customer_message,
+                    [booking.email]
+             )
+                
+                # Admin Email
 
-Service: {booking.service.name}
-Date: {booking.appointment_date}
-Slot: {booking.slot}
-
-We will confirm soon.
-""",
-                            settings.EMAIL_HOST_USER,
-                            [booking.email],
-                            fail_silently=False
-                        )
-                except Exception as e:
-                    print("Customer email failed:", e)
-
-                try:
-                    send_mail(
-                        "New Booking",
-                        f"""
-Customer: {booking.customer_name}
-Phone: {booking.phone}
-Email: {booking.email}
-Service: {booking.service.name}
-Date: {booking.appointment_date}
-Slot: {booking.slot}
-""",
-                        settings.EMAIL_HOST_USER,
-                        ["bbcare1402@gmail.com"],
-                        fail_silently=False
-                    )
-                except Exception as e:
-                    print("Admin email failed:", e)
+                admin_message = f"""
+                Customer: {booking.customer_name}
+                Phone: {booking.phone}
+                Email: {booking.email}
+            Service: {booking.service.name}
+            Date: {booking.appointment_date}
+            Slot: {booking.slot}
+            """
+                safe_send_mail(
+                    "New Booking - BB CARE",
+                    admin_message,
+                    ["bbcare1402@gmail.com"]
+                )
+            
+            
 
                 return redirect("booking_success")
 
@@ -261,14 +283,21 @@ Slot: {booking.slot}
 def booking_success(request):
     return render(request, "core/booking_success.html")
 
-import smtplib
 from django.http import HttpResponse
 
 def smtp_test(request):
     try:
-        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=20)
         server.starttls()
-        server.login("your_email@gmail.com", "your_app_password")
+
+        server.login(
+            settings.EMAIL_HOST_USER,
+            settings.EMAIL_HOST_PASSWORD
+        )
+
+        server.quit()
+
         return HttpResponse("SMTP WORKING")
+
     except Exception as e:
         return HttpResponse(f"FAILED: {e}")

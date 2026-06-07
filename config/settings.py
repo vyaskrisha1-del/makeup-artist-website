@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,14 +121,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
+import os
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT =  587
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'bbcare1402@gmail.com'
-EMAIL_HOST_PASSWORD =  'lmmiwxqsksnclgvs'
-EMAIL_TIMEOUT = 5
+EMAIL_HOST_PASSWORD = 'lmmiwxqsksnclgvs'
+
+EMAIL_TIMEOUT = 20
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
