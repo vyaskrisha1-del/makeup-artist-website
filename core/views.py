@@ -291,8 +291,8 @@ def smtp_test(request):
         server.starttls()
 
         server.login(
-            settings.EMAIL_HOST_USER,
-            settings.EMAIL_HOST_PASSWORD
+            'bbcare1402@gmail.com',
+            'lmmiwxqsksnclgvs'
         )
 
         server.quit()
