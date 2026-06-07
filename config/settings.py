@@ -126,7 +126,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'bbcare1402@gmail.com'
-EMAIL_HOST_PASSWORD = 'ypclnykmgfqlwfln'
+EMAIL_HOST_PASSWORD = 'lmmiwxqsksnclgvs'
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
